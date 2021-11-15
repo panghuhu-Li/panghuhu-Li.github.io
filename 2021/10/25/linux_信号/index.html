@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-命令 -东北大学石凯老师制作," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 信号">
+<meta property="og:url" content="http://example.com/2021/10/25/linux_%E4%BF%A1%E5%8F%B7/index.html">
+<meta property="og:site_name" content="Panghuhu-Li">
+<meta property="og:description" content="信号">
+<meta property="og:locale">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1ytt6mhvbeK8jSZPfXXariXXa-1431-390.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB12MdcoOpE_u4jSZKbXXbCUVXa-615-670.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1hwhcoOpE_u4jSZKbXXbCUVXa-1402-1584.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1nK.z2Br0gK0jSZFnXXbRRXXa-1428-532.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1Me.z2Br0gK0jSZFnXXbRRXXa-1384-1884.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1fPkaqRFR4u4jSZFPXXanzFXa-1376-1403.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1Lq7c2xz1gK0jSZSgXXavwpXa-688-809.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1Wizdn5DsXe8jSZR0XXXK6FXa-687-634.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB13ykn2pT7gK0jSZFpXXaTkpXa-1393-673.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1kOlIpwgP7K4jSZFqXXamhVXa-283-1441.png">
+<meta property="article:published_time" content="2021-10-25T12:13:16.000Z">
+<meta property="article:modified_time" content="2021-11-15T09:00:57.253Z">
+<meta property="article:author" content="LiXingZe">
+<meta property="article:tag" content="-命令 -东北大学石凯老师制作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.alicdn.com/tfs/TB1ytt6mhvbeK8jSZPfXXariXXa-1431-390.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/10/25/linux_信号/"/>
+
+
+
+
+
+  <title>Linux 信号 | Panghuhu-Li</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e00624a33e2d9aece267e6c22218ac5c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Panghuhu-Li</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/25/linux_%E4%BF%A1%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/spongeBaby.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Panghuhu-Li">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux 信号</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-25T20:13:16+08:00">
+                2021-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/10/25/linux_%E4%BF%A1%E5%8F%B7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/10/25/linux_%E4%BF%A1%E5%8F%B7/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><span id="more"></span>
+
+<h2 id="什么是信号？"><a href="#什么是信号？" class="headerlink" title="什么是信号？"></a>什么是信号？</h2><p>生活中有很多信号，比如交通信号灯的红灯亮了，或绿灯亮了。交通信号灯本身不是信号，它是信号的来源。“红”、“绿”才是信号。另外，信号本身并不包括行为。通常来说，一个人看到红灯信号的默认行为是停止，但我们也无法阻止一个法外之徒闯红灯。看到了红灯信号，行和停取决于人的反应。Unix/Linux中的进程接收到一个信号后，也有一个默认的行为，那就是死。</p>
+<p>在Unix/Linux系统中，信号（signal）是通知进程发生了异步事件的一种机制。在Unix/Linux系统中，信号用一个整数表示，为了便于记忆，每个整数也有相应的宏定义：如2号信号的宏定义为SIGINT（signal of interrupt）。信号是一种软中断，当一个进程收到了信号后，一般它有三个选择：（1）默认处理方式：进程终止，（2）忽略，（3）调用一个自定义信号处理函数。信号来源于内核，生成信号的请求来自三个地方：（1）用户终端：比如“ctrl+c”；（2）内核：当进程执行出错时，内核给进程发送一个信号，比如：浮点数溢出、非法段读取等；（3）进程：一个进程可以通过系统调用kill给其他进程发送信号，进程间可以通过信号通信。信号可以用于：（1）处理异常，（2）协调进程的执行。</p>
+<h2 id="信号可以用来杀死进程"><a href="#信号可以用来杀死进程" class="headerlink" title="信号可以用来杀死进程"></a>信号可以用来杀死进程</h2><p>由于进程对信号的默认反应就是死，因此信号可以用来杀死进程。</p>
+<p>当我们在前台运行一个进程，但希望终止其运行时，可以在终端按下“ctrl+c”。按下“ctrl+c”时，就通过终端是向该进程发送了一个SIGINT，即2号信号。</p>
+<p>我们用stty -a查看一下终端设置，^表示ctrl键。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1ytt6mhvbeK8jSZPfXXariXXa-1431-390.png" alt="img"></p>
+<p>有一个命令专门用来发送信号给进程，它就是kill。kill的基本用法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -signum pid</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例：使用信号9杀死在后台运行的vim进程。</p>
+<p><img src="https://img.alicdn.com/tfs/TB12MdcoOpE_u4jSZKbXXbCUVXa-615-670.png" alt="img"></p>
+<p>除了kill，如果系统通过程序名杀死多个进程，可以使用killall命令。例如，想杀死所有的vim进程，可以用killall -9 vim。</p>
+<p>发送信号的系统调用也是kill。我们可以通过man 2 kill查看一下该系统调用。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1hwhcoOpE_u4jSZKbXXbCUVXa-1402-1584.png" alt="img"></p>
+<p>kill系统调用简单易懂。很显然，kill命令是用kill系统调用编写的。</p>
+<h2 id="查看所有的信号列表"><a href="#查看所有的信号列表" class="headerlink" title="查看所有的信号列表"></a>查看所有的信号列表</h2><p>（1）可以使用kill -l查看所有的信号。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1nK.z2Br0gK0jSZFnXXbRRXXa-1428-532.png" alt="img"></p>
+<p>（2）可以用<code>man 7 signal</code>查看关于信号的详细知识。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1Me.z2Br0gK0jSZFnXXbRRXXa-1384-1884.png" alt="img"></p>
+<p>（3）查看/usr/include/bits/signum.h文件。</p>
+<p>C语言系统调用和库函数的头文件都存放于/etc/include/下面。关于信号数的文件为/usr/include/bits/signum.h，可以用vi编辑器直接打开。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1fPkaqRFR4u4jSZFPXXanzFXa-1376-1403.png" alt="img"></p>
+<h2 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h2><p>一个进程对某一个信号的处理有三种方式：（1）默认：进程消亡；（2）忽略：就像没有收到信号一样；（3）用信号处理函数进行处理。</p>
+<p>信号对于进程来说，是一种软中断——对于进程来说，软中断与终端类似，即无论当前进程在执行什么指令，软中断都会使得当前进程暂停当前指令，而不得不去处理该信号。也正因为不知道信号是否到达、何时到达，因而对信号如何处理，一般要在程序开始就加以声明为好。</p>
+<p>对某一信号处理方式的声明，使用signal系统调用完成。先用man 2 signal查看下文档。</p>
+<p>通过signal的文档（man 7 signal和/usr/include/bits/signum.h也同样写了）我们可知，SIGKILL（9号信号）和SIGSTOP（19号信号）是不可以被捕捉和忽略的——目的是防止出现杀不死的进程。</p>
+<p>例1：忽略2号、3号信号，试图忽略9号信号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">	signal(2, SIG_IGN);</span><br><span class="line">	signal(3, SIG_IGN);</span><br><span class="line">	signal(9, SIG_IGN);</span><br><span class="line"></span><br><span class="line">	while(1)&#123;</span><br><span class="line">		printf(&quot;You cannot kill me\n&quot;);</span><br><span class="line">		sleep(1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果为：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1Lq7c2xz1gK0jSZSgXXavwpXa-688-809.png" alt="img"></p>
+<p>这是一个死循环程序，我们试图用ctrl+c杀死该进程，但是没有任何效果，因为该进程已设置忽略SIGINT。因此我们通过ctrl+z挂起该进程，之后通过9号信号（SIGKILL）杀死了该进程。我们注意到，尽管我们在程序中设置了对9号信号忽略，但仍不能忽略9号信号——因为9号和15号信号不可被捕捉和忽略。</p>
+<p>例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">void f(int signum)&#123;</span><br><span class="line">	printf(&quot;%d comes. Ouch!\n&quot;, signum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">	signal(2, f);</span><br><span class="line">	signal(3, f);</span><br><span class="line"></span><br><span class="line">	while(1)&#123;</span><br><span class="line">		printf(&quot;You cannot kill me\n&quot;);</span><br><span class="line">		sleep(1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果为：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1Wizdn5DsXe8jSZR0XXXK6FXa-687-634.png" alt="img"></p>
+<p>我们通过在终端输入“<code>ctrl+c</code>”和“<code>ctrl+\</code>”向进程发送2号和3号信号，进程成功地将其捕捉，并调用信号处理函数进行处理。因为进程会“实时地“处理信号——因此我们称之为软中断。信号处理函数的参数可以获得调用该函数的来源信号是谁，因此我们可以用同一个信号处理函数处理不同的信号。</p>
+<h2 id="sleep-函数是如何实现的？"><a href="#sleep-函数是如何实现的？" class="headerlink" title="sleep()函数是如何实现的？"></a>sleep()函数是如何实现的？</h2><p>sleep()是我们在编写示例程序时常用的库函数.通过观察易于发现进程在sleep()后cpu使用率为0，因而其一定不是自旋锁。它的神奇之处在于能挂起n秒后能继续接着执行。因而必定有其他机制将其唤醒。</p>
+<p>sleep()的本质与我们每晚睡眠前设定闹钟，待第二日清晨闹钟产生闹铃信号，唤醒我们没有什么不同。示例代码演示了sleep()的本质。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">void f(int signum)&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    signal(SIGALRM, f);</span><br><span class="line">    printf(&quot;about to sleep 5 seconds\n&quot;);</span><br><span class="line">    alarm(5);</span><br><span class="line">    pause();</span><br><span class="line">    </span><br><span class="line">    printf(&quot;wake up\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>每个进程都有一个私有计时器，可以设定其在一定秒数之后产生一个SIGALRM信号。当然，如果没有设定对SIGALRM信号的处理，该信号会杀死进程。系统调用pause会挂起一个进程直到有一个信号被处理。man 2 pause的内容如下。</p>
+<p><img src="https://img.alicdn.com/tfs/TB13ykn2pT7gK0jSZFpXXaTkpXa-1393-673.png" alt="img"></p>
+<h2 id="间隔计时器"><a href="#间隔计时器" class="headerlink" title="间隔计时器"></a>间隔计时器</h2><p>计时器系统是基于信号的，是软中断。借助计时器系统，能实现类似于“多线程”的效果，只不过计时器系统出现得更早，实时性更高。alarm()只是一个秒级的计时器，在Unix很早就有，很多情况下精度不够。后来Unix引入了一个更复杂、更高精度的计时器系统——间隔计时器（interval timer）。</p>
+<p>首先，间隔计时器提供了3种可选的计时器，分别为ITIMER_REAL、ITIMER_VIRTUAL，和ITIMER_PROF。</p>
+<ul>
+<li>ITIMER_REAL（真实）跟我们正常的时钟一样，是基于客观的、人类直觉的时间，因而也是最经常使用的。</li>
+<li>ITIMER_VIRTUAL （虚拟）是进程在用户态运行时才计时的时间。有点像篮球比赛中裁判的那个表——明明比赛一分钟就要结束，结果半个小时也没打完。这里的一分钟就是虚拟时间，而半个小时是真实时间。</li>
+<li>ITIMER_PROF在进程运行于用户态或由于系统调用进入内核态时都会进行计时。</li>
+</ul>
+<p>其次，间隔计时器提供了初始时间和间隔时间，且每个时间都是双精度的（秒和微秒）。</p>
+<p>man 2 setitimer写得非常清楚。</p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;sys/time.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">void f(int signum)&#123;</span><br><span class="line">    printf(&quot;Alarm!\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    struct itimerval time;</span><br><span class="line">    signal(SIGALRM, f);</span><br><span class="line"></span><br><span class="line">    time.it_value.tv_sec=3;</span><br><span class="line">    time.it_value.tv_usec=500000;</span><br><span class="line">    time.it_interval.tv_sec=0;</span><br><span class="line">    time.it_interval.tv_usec=500000;</span><br><span class="line"></span><br><span class="line">    setitimer(ITIMER_REAL, &amp;time, NULL);</span><br><span class="line"></span><br><span class="line">    while(1)&#123;</span><br><span class="line">        printf(&quot;haha\n&quot;);</span><br><span class="line">        usleep(100000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果如下：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1kOlIpwgP7K4jSZFqXXamhVXa-283-1441.png" alt="img"></p>
+<p>while循环会每0.1秒打印一个“haha”。当程序运行3.5秒后，间隔计时器产生第一个SIGALRM信号（信号处理导致打印出一个“Alarm”），之后每0.5秒会产生一个SIGALRM信号（打印出一个“Alarm”）。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%91%BD%E4%BB%A4-%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E7%9F%B3%E5%87%AF%E8%80%81%E5%B8%88%E5%88%B6%E4%BD%9C/" rel="tag"># -命令 -东北大学石凯老师制作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/25/linux_%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="next" title="Linux 多线程">
+                <i class="fa fa-chevron-left"></i> Linux 多线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/25/linux_%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6/" rel="prev" title="Linux 万物皆文件">
+                Linux 万物皆文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/spongeBaby.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/panghuhu-Li" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1873798269@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/pangduhu?spm=1000.2115.3001.5343" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-CSDN"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">信号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BF%A1%E5%8F%B7%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是信号？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">信号可以用来杀死进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E4%BF%A1%E5%8F%B7%E5%88%97%E8%A1%A8"><span class="nav-number">1.3.</span> <span class="nav-text">查看所有的信号列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">信号处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep-%E5%87%BD%E6%95%B0%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">sleep()函数是如何实现的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%B4%E9%9A%94%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">间隔计时器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiXingZe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '52gjxE0TQOqMoAYVDGimPSCH-gzGzoHsz',
+        appKey: 'CVb5wpNEzxrvhUUsT4gxkbn1',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

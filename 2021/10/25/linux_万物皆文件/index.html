@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-命令 -东北大学石凯老师制作," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="万物皆文件在Unix&#x2F;Linux里，“一切皆文件”——文件是文件、目录是文件、设备是文件，socket连接、管道也类似于打开的文件。 因为一个进程宏观上就两个状态，CPU burst或者I&#x2F;O burst。I（input）无非就是：不是该进程的数据进入到该进程；O（output）无非就是：进程的输入输出到进程的外部。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 万物皆文件">
+<meta property="og:url" content="http://example.com/2021/10/25/linux_%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Panghuhu-Li">
+<meta property="og:description" content="万物皆文件在Unix&#x2F;Linux里，“一切皆文件”——文件是文件、目录是文件、设备是文件，socket连接、管道也类似于打开的文件。 因为一个进程宏观上就两个状态，CPU burst或者I&#x2F;O burst。I（input）无非就是：不是该进程的数据进入到该进程；O（output）无非就是：进程的输入输出到进程的外部。">
+<meta property="og:locale">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1auWR11H2gK0jSZJnXXaT1FXa-1404-1062.webp">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1ZQSU1Yr1gK0jSZFDXXb9yVXa-1120-206.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1TizarBBh1e4jSZFhXXcC9VXa-1420-802.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1mTiT1WL7gK0jSZFBXXXZZpXa-1857-104.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1QCvarBBh1e4jSZFhXXcC9VXa-618-88.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1.GCL1YY1gK0jSZTEXXXDQVXa-1854-784.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1dWEAlxvbeK8jSZPfXXariXXa-1067-482.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1wYm718r0gK0jSZFnXXbRRXXa-900-63.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB16tSJ17L0gK0jSZFtXXXQCXXa-1007-89.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1EpdhrQ9l0K4jSZFKXXXFjpXa-788-654.png">
+<meta property="article:published_time" content="2021-10-25T12:13:16.000Z">
+<meta property="article:modified_time" content="2021-11-15T09:00:28.888Z">
+<meta property="article:author" content="LiXingZe">
+<meta property="article:tag" content="-命令 -东北大学石凯老师制作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.alicdn.com/tfs/TB1auWR11H2gK0jSZJnXXaT1FXa-1404-1062.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/10/25/linux_万物皆文件/"/>
+
+
+
+
+
+  <title>Linux 万物皆文件 | Panghuhu-Li</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e00624a33e2d9aece267e6c22218ac5c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Panghuhu-Li</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/25/linux_%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/spongeBaby.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Panghuhu-Li">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux 万物皆文件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-25T20:13:16+08:00">
+                2021-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/10/25/linux_%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/10/25/linux_%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="万物皆文件"><a href="#万物皆文件" class="headerlink" title="万物皆文件"></a>万物皆文件</h2><p>在Unix/Linux里，“一切皆文件”——文件是文件、目录是文件、设备是文件，socket连接、管道也类似于打开的文件。</p>
+<p>因为一个进程宏观上就两个状态，CPU burst或者I/O burst。I（input）无非就是：不是该进程的数据进入到该进程；O（output）无非就是：进程的输入输出到进程的外部。</p>
+<span id="more"></span>
+
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>一个“打开”的文件用文件描述符（file descriptor）表示。</p>
+<p>每个进程都有一个文件描述符表，表示这个进程打开的所有文件。里面的每一条项目都对应一个打开的文件。文件描述符是一个大于等于0的整数，该数值表示这个打开的文件在该进程的打开文件表是第一个项目（从0开始计数）。</p>
+<p>由于不同的进程都用大于等于零的整数作为文件描述符，所以在不同的进程中你会看到相同数值的文件描述符。文件描述表中每一项都包含一个指针，它指向系统级的打开文件表中的一个用于描述打开的文件的数据块。</p>
+<p>对于一个进程而言，每一个文件描述符会与一个打开文件相对应，同时，不同的文件描述符也可以指向同一个文件。相同的文件可以被不同的进程打开也可以在同一个进程中被多次打开。内核维护了3个数据结构，分别是（1）进程级的文件描述符表、（2）系统级的打开文件描述符表、（3）文件系统的i-node表，如下图所示。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1auWR11H2gK0jSZJnXXaT1FXa-1404-1062.webp" alt="img"></p>
+<h2 id="如何查找合适的系统调用-库函数"><a href="#如何查找合适的系统调用-库函数" class="headerlink" title="如何查找合适的系统调用/库函数"></a>如何查找合适的系统调用/库函数</h2><p>man手册是最终重要的参考文档和学习资料。</p>
+<p>可以使用man -k和grep命令相结合查找想要的内容。</p>
+<p>例：想要查找open file的系统调用</p>
+<p>因为系统调用在手册页第2部分（详见第二章），因此我们可以用如下命令查找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$man -k file|grep open|grep \(2\)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>结果如下：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1ZQSU1Yr1gK0jSZFDXXb9yVXa-1120-206.png" alt="img"></p>
+<p>我们发现其中<code>open (2)</code>是我们需要的。通过<code>man 2 open</code>查看其man手册。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1TizarBBh1e4jSZFhXXcC9VXa-1420-802.png" alt="img"></p>
+<h2 id="系统调用open"><a href="#系统调用open" class="headerlink" title="系统调用open"></a>系统调用open</h2><p>man手册给出了系统调用open的头文件，以及函数原型。我们注意到open有两种调用格式，一种是两个参数，另外一种是三个参数。我们先看两个参数的调用格式。根据man文档，我们可以知道，pathname为欲打开的文件的文件名，flags为打开文件的访问模式，可以是O_RDONLY, O_WRONLY, 或 O_RDWR，分别对应为只读、只写和读写模式。注意，这种全大写的宏定义在C语言里一般都是对应为一个整数，即用一个整数数值来区分不同flag，写成这种全大写的宏定义是为了程序更易读。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1mTiT1WL7gK0jSZFBXXXZZpXa-1857-104.png" alt="img"></p>
+<p>open的返回值是文件描述符。表示为进程中打开的一个文件。当然，如果由于文件不存在或权限不够很有可能导致文件打开失败，此时open的返回值为-1。</p>
+<h3 id="错误（“异常”）处理"><a href="#错误（“异常”）处理" class="headerlink" title="错误（“异常”）处理"></a>错误（“异常”）处理</h3><p>C语言没有“异常”这一概念，当系统调用出错时，会通过返回值来标识系统调用出错，并通过errno来指示到底出现了什么错误。我们可以用perror来打印出errno对应的以字符串描述的错误原因。</p>
+<p>系统调用出错返回值的一般的规律是：如果系统调用的返回值是整数，则返回-1代表错误；如果系统调用的返回值是指针类型，则返回NULL代表错误。</p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    int fd=open(&quot;no_file&quot;, O_RDONLY);</span><br><span class="line">    if(-1==fd)&#123;</span><br><span class="line">        perror(&quot;cannot open&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果为：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1QCvarBBh1e4jSZFhXXcC9VXa-618-88.png" alt="img"></p>
+<p>cannot open之后的内容即为errno对应的以字符串描述的错误原因——没有这个文件或目录。</p>
+<h2 id="模仿cat命令"><a href="#模仿cat命令" class="headerlink" title="模仿cat命令"></a>模仿cat命令</h2><p>文件打开后，我们试图读取文件内容。你可以通过man -k file|grep read|grep 2，亦可以通过open手册页中see also找到该系统调用，即read。我们用man 2 read查看read的手册页。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1.GCL1YY1gK0jSZTEXXXDQVXa-1854-784.png" alt="img"></p>
+<p>man手册写得非常清楚，在此不再赘述。我们试图写一个cat命令来演示open和read的使用。</p>
+<p>例：写一个自己版本的cat。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">main(int ac, char *av[])&#123;</span><br><span class="line">    int fd;</span><br><span class="line">    char buf[32];</span><br><span class="line">    int n;</span><br><span class="line"></span><br><span class="line">    if(ac!=2)&#123;</span><br><span class="line">        printf(&quot;Usage: CMD filename\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if((fd=open(av[1], O_RDONLY))==-1)&#123;</span><br><span class="line">        perror(&quot;cannot open&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    while((n=read(fd, buf, sizeof(buf)))&gt;0)&#123;</span><br><span class="line">        printf(&quot;%.*s&quot;, n, buf); </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1dWEAlxvbeK8jSZPfXXariXXa-1067-482.png" alt="img"></p>
+<h2 id="设备也是文件"><a href="#设备也是文件" class="headerlink" title="设备也是文件"></a>设备也是文件</h2><p>在Unix/Linux上，设备也是文件。这些设备文件存放于/dev目录下。对于输出设备其属性是只写的，对于输入设备其属性是只读的，对于既能输入也能输出的设备——比如终端——其属性是可读可写的。</p>
+<p>我们以终端设备为例。通过tty命令来查看当前终端对应的文件，比如我这台机器的结果是这样的。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1wYm718r0gK0jSZFnXXbRRXXa-900-63.png" alt="img"></p>
+<p>说明<code>/dev/pts/0</code>是我当前的设备文件。我们可以试着以只写方式将其打开，并将内容写入。</p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    int fd;</span><br><span class="line"></span><br><span class="line">    if((fd=open(&quot;/dev/pts/0&quot;, O_WRONLY))==-1)&#123;</span><br><span class="line">        perror(&quot;cannot open&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    write(fd, &quot;hello tty!\n&quot;, 11);</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当然最后结果还是从终端冒了出来。</p>
+<p><img src="https://img.alicdn.com/tfs/TB16tSJ17L0gK0jSZFtXXXQCXXa-1007-89.png" alt="img"></p>
+<p>如果你的个人计算机上有鼠标的话，你可以试试以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">    int fd;</span><br><span class="line">    char buf[512];</span><br><span class="line">    int n;</span><br><span class="line">    int i;</span><br><span class="line"></span><br><span class="line">    if((fd=open(&quot;/dev/input/mice&quot;, O_RDONLY))==-1)&#123;</span><br><span class="line">        perror(&quot;cannot open&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    while((n=read(fd, buf, sizeof(buf)))&gt;0)&#123;</span><br><span class="line">        for(i=0;i&lt;n;i++)&#123;</span><br><span class="line">            printf(&quot;%d&quot;, buf[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>它的运行效果是这样的：</p>
+<p><img src="https://img.alicdn.com/tfs/TB1EpdhrQ9l0K4jSZFKXXXFjpXa-788-654.png" alt="img"></p>
+<p>在这里，因为一般用户不具备访问鼠标文件的权限，因此我们用su命令切换成超级用户root。关于文件mode和用户的知识，我们会在后继课程详述。</p>
+<p>上一页下一页</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%91%BD%E4%BB%A4-%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E7%9F%B3%E5%87%AF%E8%80%81%E5%B8%88%E5%88%B6%E4%BD%9C/" rel="tag"># -命令 -东北大学石凯老师制作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/25/linux_%E4%BF%A1%E5%8F%B7/" rel="next" title="Linux 信号">
+                <i class="fa fa-chevron-left"></i> Linux 信号
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/25/linux_IO%E5%A4%8D%E7%94%A8/" rel="prev" title="Linux I/O复用">
+                Linux I/O复用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/spongeBaby.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/panghuhu-Li" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1873798269@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/pangduhu?spm=1000.2115.3001.5343" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-CSDN"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%87%E7%89%A9%E7%9A%86%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">万物皆文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BE%E5%90%88%E9%80%82%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-%E5%BA%93%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">如何查找合适的系统调用&#x2F;库函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8open"><span class="nav-number">4.</span> <span class="nav-text">系统调用open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%EF%BC%88%E2%80%9C%E5%BC%82%E5%B8%B8%E2%80%9D%EF%BC%89%E5%A4%84%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">错误（“异常”）处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BFcat%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">模仿cat命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%B9%9F%E6%98%AF%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">设备也是文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiXingZe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '52gjxE0TQOqMoAYVDGimPSCH-gzGzoHsz',
+        appKey: 'CVb5wpNEzxrvhUUsT4gxkbn1',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
